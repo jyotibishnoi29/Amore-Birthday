@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f3e6cf">
+  <title>For My Amore · Rajkumar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <audio id="loveSong" loop preload="none">
+    <!-- Add your audio file to audio/ and update this path, for example: audio/our-song.mp3 -->
+    <source src="audio/your-song.mp3" type="audio/mpeg">
+  </audio>
+
+  <button class="music-toggle" id="musicToggle" aria-label="Play or pause music">♫ <span>Our song</span></button>
+  <div class="grain"></div>
+
+  <main>
+    <!-- SCENE 1: COUNTDOWN -->
+    <section class="scene active intro-scene" id="scene-countdown">
+      <div class="paper-card intro-card">
+        <p class="eyebrow">A little something, made with love</p>
+        <div class="postmark">SPECIAL<br>DELIVERY<br><span>♥</span></div>
+        <div class="mini-flower flower-a">✿</div><div class="mini-flower flower-b">❀</div>
+        <h1>For my <em>Amore</em></h1>
+        <p class="handwritten name-line">Rajkumar, this little world is only for you.</p>
+        <div class="countdown" id="countdown">
+          <div><strong id="days">00</strong><span>days</span></div>
+          <i>:</i><div><strong id="hours">00</strong><span>hours</span></div>
+          <i>:</i><div><strong id="minutes">00</strong><span>minutes</span></div>
+          <i>:</i><div><strong id="seconds">00</strong><span>seconds</span></div>
+        </div>
+        <p class="small-note" id="countdownNote">Counting down to your special day · 5 November</p>
+        <button class="primary-btn" id="beginBtn">Open your little world <span>♡</span></button>
+        <p class="tiny">Turn the page, my love…</p>
+      </div>
+      <div class="side-sprig left-sprig">❧</div><div class="side-sprig right-sprig">❧</div>
+    </section>
+
+    <!-- SCENE 2: CAKE -->
+    <section class="scene" id="scene-cake">
+      <div class="paper-card cake-card">
+        <p class="eyebrow">Chapter I · Make a wish</p>
+        <h2>Happy Birthday,<br><em>my Bishnoi</em></h2>
+        <p class="body-copy">A little cake for the boy who makes my world sweeter.</p>
+        <div class="cake-stage">
+          <div class="cake-flower cake-flower-left">✿</div><div class="cake-flower cake-flower-right">❀</div>
+          <div class="candle" id="candle"><div class="flame" id="flame"></div><div class="wick"></div></div>
+          <div class="cake-top"><span>my amore</span></div>
+          <div class="cake-layer layer-top"></div><div class="cake-layer layer-bottom"></div>
+          <div class="cake-plate"></div>
+          <div class="cake-hearts">♡ &nbsp; ✿ &nbsp; ♡</div>
+        </div>
+        <p class="handwritten" id="cakeMessage">Close your eyes, make a wish, and blow, birthday boy.</p>
+        <div class="button-row">
+          <button class="secondary-btn" id="blowBtn">Blow out candle ✧</button>
+          <button class="primary-btn" id="cutBtn" disabled>Cut the cake →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 3: ENVELOPE -->
+    <section class="scene" id="scene-letter">
+      <div class="paper-card letter-scene-card">
+        <p class="eyebrow">Chapter II · From my heart to yours</p>
+        <h2>A letter, sealed <em>with love</em></h2>
+        <p class="body-copy">Some things are too special to say in just one message.</p>
+        <button class="envelope-wrap" id="openEnvelope" aria-label="Open the sealed love letter">
+          <div class="envelope">
+            <div class="envelope-back"></div>
+            <div class="letter-paper"><span class="letter-topline">My dearest Amore,</span><span class="letter-lines">with all my love</span></div>
+            <div class="envelope-front"></div>
+            <div class="envelope-flap"></div>
+            <div class="wax-seal">♥</div>
+          </div>
+          <span class="handwritten envelope-caption">Tap the seal to open your letter</span>
+        </button>
+        <article class="typed-letter hidden" id="typedLetter">
+          <p class="letter-date">5 November · for you, always</p>
+          <div id="letterText"></div>
+          <p class="signature handwritten">Forever your girl, ♡</p>
+          <button class="primary-btn next-letter-btn" id="toNameBtn">There's a secret in your name →</button>
+        </article>
+      </div>
+    </section>
+
+    <!-- SCENE 4: NAME -->
+    <section class="scene" id="scene-name">
+      <div class="paper-card name-card">
+        <p class="eyebrow">Chapter III · Every letter means something</p>
+        <h2>For my <em>Rajkumar</em></h2>
+        <p class="body-copy">Tap each letter and collect a little piece of my heart.</p>
+        <div class="name-letters" id="nameLetters" aria-label="Tap each letter in Rajkumar"></div>
+        <div class="meaning-card" id="meaningCard">
+          <span class="tiny-label">A little note for you</span>
+          <p id="meaningText">Your little message will appear here.</p>
+        </div>
+        <div class="assembled-message hidden" id="assembledMessage">
+          <span>♡ a note from me to you ♡</span>
+          <p>Rajkumar, my favourite person, my safe little corner, my Amore. Never forget how deeply you are loved, how much you matter, and how grateful I am that our paths crossed.</p>
+        </div>
+        <button class="primary-btn hidden" id="toMemoriesBtn">Open our memory book →</button>
+      </div>
+    </section>
+
+    <!-- SCENE 5: PHOTO SCRAPBOOK -->
+    <section class="scene memories-scene" id="scene-memories">
+      <div class="paper-card memories-card">
+        <p class="eyebrow">Chapter IV · Our little collection of forever</p>
+        <h2>Little moments,<br><em>one big love</em></h2>
+        <p class="body-copy">Add your own photos to the images folder. They will sit among the little vintage details, just like keepsakes in a scrapbook.</p>
+        <div class="scrapbook">
+          <div class="decor decor-left">
+            <div class="stamp">WITH<br>LOVE<br><span>♥</span></div>
+            <div class="pressed-flower">✿</div>
+            <p class="vertical-note">little things i adore</p>
+          </div>
+          <div class="photo-heart" id="photoHeart">
+            <!-- Replace these image files with your own photos, keeping the filenames OR update src in index.html -->
+            <figure class="polaroid p1"><img src="images/photo-1.jpg" alt="Our memory 1"><figcaption>my favourite smile</figcaption></figure>
+            <figure class="polaroid p2"><img src="images/photo-2.jpg" alt="Our memory 2"><figcaption>you & me</figcaption></figure>
+            <figure class="polaroid p3"><img src="images/photo-3.jpg" alt="Our memory 3"><figcaption>one for the heart</figcaption></figure>
+            <figure class="polaroid p4"><img src="images/photo-4.jpg" alt="Our memory 4"><figcaption>my happy place</figcaption></figure>
+            <figure class="polaroid p5"><img src="images/photo-5.jpg" alt="Our memory 5"><figcaption>this little moment</figcaption></figure>
+            <figure class="polaroid p6"><img src="images/photo-6.jpg" alt="Our memory 6"><figcaption>always us</figcaption></figure>
+            <div class="heart-center">♡</div>
+          </div>
+          <div class="decor decor-right">
+            <div class="postage">POST<br>CARD</div>
+            <div class="side-rose">🌹</div>
+            <p class="handwritten side-note">if i could keep one thing, it would be a thousand more moments with you.</p>
+          </div>
+        </div>
+        <p class="handwritten memory-caption">Every picture holds a moment. Every moment holds a piece of my heart.</p>
+        <button class="primary-btn" id="toFinalBtn">One last page, Amore →</button>
+      </div>
+    </section>
+
+    <!-- SCENE 6: FINAL -->
+    <section class="scene" id="scene-final">
+      <div class="paper-card final-card">
+        <p class="eyebrow">The last page · but never the last of my love</p>
+        <div class="final-flower">✿</div>
+        <h2>How lucky I am<br><em>to have you</em></h2>
+        <div class="final-letter">
+          <p>Sometimes I wonder how one person can become such a beautiful part of another person's life. And then I think of you.</p>
+          <p>I'm grateful for your existence, for the person you are, for the memories we've made, and for all the little moments that became special simply because they included you.</p>
+          <p>I hope this new year of your life brings you closer to your dreams, gives you reasons to smile on difficult days, and reminds you how wonderful you truly are.</p>
+          <p>I can't promise every day will be perfect, but I hope I can keep making little moments with you that are worth remembering.</p>
+          <p>Thank you for being you. Thank you for being part of my story. And thank you for giving my heart so many reasons to smile.</p>
+          <p class="final-bold">Happy 22nd Birthday, my Rajkumar. My Bishnoi. My Amore. ♡</p>
+          <p class="handwritten final-signoff">In every little chapter, I choose you. Always. ♡</p>
+        </div>
+        <button class="secondary-btn" id="restartBtn">Read our story again ↶</button>
+        <p class="tiny">Handmade with love, just for you.</p>
+      </div>
+    </section>
+  </main>
+  <div class="page-number" id="pageNumber">01 / 06</div>
+  <script src="script.js"></script>
+</body>
+</html>
