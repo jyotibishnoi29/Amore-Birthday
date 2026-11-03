@@ -1,0 +1,2 @@
+Add your background song here and name it your-song.mp3.
+The website tries to start the song when opened. Browsers commonly block audible autoplay until the visitor interacts once; the first Open your surprise tap also starts the music.
