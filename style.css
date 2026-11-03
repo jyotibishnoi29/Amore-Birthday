@@ -72,6 +72,7 @@ button:focus-visible { outline: 3px solid var(--olive); outline-offset: 4px; }
   box-shadow: 0 3px 12px var(--shadow);
 }
 .music-toggle span { margin-left: 5px; }
+.back-btn { position: fixed; left: 16px; bottom: 14px; z-index: 26; padding: 9px 16px; background: rgba(255,248,235,.92); box-shadow: 0 3px 12px var(--shadow); }
 .page-number { position: fixed; bottom: 13px; right: 17px; z-index: 25; font-size: .78rem; letter-spacing: .1em; color: #6d4a3b; }
 .postmark { position: absolute; right: 8%; top: 14%; border: 1px dashed #a36d5e; color: #a36d5e; border-radius: 50%; width: 86px; height: 86px; display: grid; place-content: center; transform: rotate(12deg); font-size: .61rem; letter-spacing: .1em; line-height: 1.2; }
 .postmark span { font-size: 1.1rem; }
@@ -187,4 +188,721 @@ button:disabled { opacity: .4; cursor: not-allowed; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+
+/* DREAMY, LIVING SCRAPBOOK ENHANCEMENTS */
+.scene { perspective: 1200px; }
+.scene.active .paper-card { animation: cardArrive 1s cubic-bezier(.2,.75,.25,1) both; }
+@keyframes cardArrive { 0% { opacity:0; transform:translateY(28px) rotateX(5deg) scale(.96); filter:blur(3px); } 100% { opacity:1; transform:none; filter:blur(0); } }
+.memory-backdrop { position:fixed; inset:-24px; z-index:-2; pointer-events:none; opacity:0; background-position:center; background-size:cover; filter:blur(9px) saturate(.7); transform:scale(1.06); transition:opacity 1.2s ease; }
+.memory-backdrop::after { content:""; position:absolute; inset:0; background:linear-gradient(135deg,rgba(245,229,204,.84),rgba(112,64,54,.42)); }
+body.has-memory-bg .memory-backdrop { opacity:.34; }
+.petal-layer { position:fixed; inset:0; overflow:hidden; pointer-events:none; z-index:18; }
+.petal { position:absolute; top:-12vh; color:#b96e70; opacity:0; text-shadow:0 2px 7px rgba(113,55,48,.18); animation:petalFall var(--fall,13s) linear var(--delay,0s) infinite; will-change:transform; }
+@keyframes petalFall { 0% { opacity:0; transform:translate3d(0,-5vh,0) rotate(0deg); } 8% {opacity:.72;} 85% {opacity:.55;} 100% {opacity:0; transform:translate3d(var(--drift,70px),115vh,0) rotate(620deg);} }
+.intro-card { animation: introFloat 6s ease-in-out infinite alternate; }
+@keyframes introFloat { to { transform:translateY(-7px) rotate(.25deg); } }
+.mini-flower,.cake-flower,.final-flower { animation: flowerSway 4s ease-in-out infinite alternate; transform-origin:bottom center; }
+@keyframes flowerSway { to { transform:rotate(13deg) translateY(-5px) scale(1.08); } }
+.cake-stage { filter:drop-shadow(0 13px 15px rgba(99,54,46,.14)); }
+.cake-stage::after { content:""; position:absolute; z-index:0; width:260px; height:190px; left:50%; top:5px; transform:translateX(-50%); background:radial-gradient(ellipse,rgba(255,221,153,.48),transparent 68%); animation:cakeGlow 2.5s ease-in-out infinite alternate; pointer-events:none; }
+@keyframes cakeGlow { to { opacity:.45; transform:translateX(-50%) scale(1.22); } }
+.cake-layer,.cake-top { transition:transform .9s cubic-bezier(.2,.8,.2,1); }
+.cake-stage.cut .layer-top { transform:translate(20px,-8px) rotate(8deg); }
+.cake-stage.cut .layer-bottom { transform:skewY(-3deg) scaleX(.97); }
+.cake-stage.cut .cake-top { transform:translate(18px,-10px) rotate(8deg); }
+.cake-stage.cut .cake-plate { box-shadow:0 0 0 12px rgba(210,157,120,.12),0 7px 0 rgba(106,67,47,.1); }
+.cake-stage.cut { animation:cakeCelebrate .7s ease; }
+@keyframes cakeCelebrate { 0%,100%{transform:scale(1)} 35%{transform:scale(1.07) rotate(-2deg)} 70%{transform:scale(1.03) rotate(2deg)} }
+.cake-moment-btn { min-width:min(300px,100%); }
+.cake-spark { position:fixed; z-index:22; pointer-events:none; font-size:clamp(16px,3vw,27px); animation:sparkBurst 1.8s ease-out forwards; }
+@keyframes sparkBurst { 0%{opacity:0;transform:translate(0,0) scale(.3)} 15%{opacity:1} 100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(180deg) scale(1.3)} }
+.envelope-wrap.opened .envelope { transform:translateY(-6px) scale(1.04); }
+.typed-letter { animation:letterBloom .9s ease both; }
+@keyframes letterBloom { from{opacity:0;transform:translateY(22px) scale(.97)} to{opacity:1;transform:none} }
+.letter-tile { animation:tileFloat 3.5s ease-in-out infinite alternate; animation-delay:calc(var(--i,0) * .12s); }
+@keyframes tileFloat { to{transform:translateY(-5px) rotate(2deg)} }
+.letter-tile.opened { background:#e8c6b2; box-shadow:0 0 18px rgba(176,105,99,.3); }
+.polaroid { animation:photoFloat var(--photo-speed,5s) ease-in-out infinite alternate; animation-delay:var(--photo-delay,0s); }
+@keyframes photoFloat { to { translate:0 -9px; rotate:1deg; } }
+.photo-heart::before { content:""; position:absolute; inset:8% 12%; background:radial-gradient(ellipse,rgba(166,94,83,.13),transparent 70%); filter:blur(15px); }
+.final-card { overflow:hidden; }
+.final-card::before,.final-card::after { animation:flowerSway 5s ease-in-out infinite alternate; }
+.final-bold { font-size:1.3rem; letter-spacing:.03em; }
+@media(max-width:680px) { .memory-backdrop { filter:blur(7px); } .petal { font-size:17px!important; } .cake-stage.cut { transform:scale(.95); } }
+@media(prefers-reduced-motion:reduce) { .petal-layer {display:none;} .intro-card,.polaroid,.letter-tile {animation:none!important;} }
+/* Keep the softly blurred uploaded portrait behind the paper, not behind the page canvas. */
+.memory-backdrop { z-index:0; }
+main { position:relative; z-index:1; }
+
+/* Birthday age candles: two elegant numeral candles, both with their own flame. */
+.number-candles { position:absolute; z-index:5; left:50%; bottom:164px; transform:translateX(-50%); display:flex; align-items:flex-end; gap:8px; height:76px; }
+.number-candle-wrap { position:relative; width:34px; height:76px; display:flex; align-items:flex-end; justify-content:center; }
+.number-candle { display:block; font-family:'Cormorant Garamond',serif; font-size:66px; line-height:.9; font-weight:700; color:#c77d72; text-shadow:1px 1px 0 #fff0d7,2px 3px 0 #a85f55; background:linear-gradient(90deg,#fff0d6,#d98f80 48%,#fff0d6); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; filter:drop-shadow(0 2px 1px rgba(103,58,45,.2)); }
+.number-flame { position:absolute; top:-2px; left:50%; width:15px; height:23px; transform:translateX(-50%); z-index:2; border-radius:60% 40% 55% 45%; background:radial-gradient(ellipse at 50% 72%,#fffbd0 0 20%,#ffc15e 43%,#e76b36 72%,transparent 74%); filter:drop-shadow(0 0 9px #ffbd58); animation:flicker .7s infinite alternate; transform-origin:50% 90%; }
+.number-flame.out { opacity:0; transform:translate(-50%,-18px) scale(.15); transition:opacity .35s,transform .45s; }
+.cake-stage.cake-glitter .cake-top { box-shadow:0 0 25px rgba(255,213,137,.8); }
+.cake-stage.cake-glitter { animation:cakeCelebrate .8s ease; }
+.cake-stage.cake-glitter .cake-layer { filter:brightness(1.08); }
+
+/* Each letter begins as a tiny wrapped present; the visitor unwraps them one at a time. */
+.name-letters { gap:12px; }
+.letter-tile.gift-tile { position:relative; width:clamp(48px,8vw,62px); height:clamp(54px,9vw,70px); overflow:visible; border:1px solid #a96f63; border-radius:5px; background:linear-gradient(145deg,#c77d72,#a85e59); box-shadow:3px 4px 0 #d5b69b,0 7px 13px rgba(83,48,39,.13); color:#fff5e5; animation:giftFloat 3s ease-in-out infinite alternate; animation-delay:calc(var(--i,0) * .15s); }
+.letter-tile.gift-tile::before { content:""; position:absolute; left:43%; top:0; width:14%; height:100%; background:rgba(255,229,183,.82); }
+.letter-tile.gift-tile::after { content:""; position:absolute; left:0; top:42%; width:100%; height:14%; background:rgba(255,229,183,.82); }
+.gift-bow { position:absolute; z-index:3; top:-12px; left:50%; transform:translateX(-50%); color:#f8e3b9; font-size:23px; text-shadow:0 1px 2px rgba(65,36,29,.3); }
+.gift-ribbon { position:absolute; z-index:2; left:50%; top:0; bottom:0; width:7px; transform:translateX(-50%); background:#f3d8a9; }
+.gift-question { position:relative; z-index:4; font:600 1.3rem 'Cormorant Garamond',serif; color:#fff8e9; text-shadow:0 1px 2px rgba(80,40,30,.3); }
+.letter-tile.gift-tile.opened { background:linear-gradient(145deg,#f6e5c9,#e7c7a9); transform:rotate(-3deg) scale(1.04); box-shadow:0 0 0 3px rgba(190,135,104,.18),0 8px 16px rgba(83,48,39,.13); }
+.letter-tile.gift-tile.opened::before,.letter-tile.gift-tile.opened::after,.letter-tile.gift-tile.opened .gift-bow,.letter-tile.gift-tile.opened .gift-ribbon { display:none; }
+.revealed-letter { position:relative; z-index:4; color:#9e514f; font:700 clamp(1.5rem,4vw,2.1rem) 'IM Fell English',serif; }
+.tiny-gift-spark { position:absolute; z-index:5; top:-12px; right:-7px; color:#b77d3f; animation:tinyPop .7s ease both; }
+@keyframes giftFloat { from{transform:translateY(0) rotate(-1deg)} to{transform:translateY(-5px) rotate(1.5deg)} }
+@keyframes tinyPop { 0%{opacity:0;transform:scale(.2) rotate(-50deg)} 70%{opacity:1;transform:scale(1.5) rotate(20deg)} 100%{opacity:1;transform:scale(1)} }
+@media(max-width:680px) { .number-candles{bottom:162px;transform:translateX(-50%) scale(.9)} .letter-tile.gift-tile{margin:4px} }
+/* SLIDE 1 - His photo background */
+/* DREAMY PORTRAIT BACKGROUND - SLIDE 1 */
+
+/* SLIDE 1 - RESPONSIVE PHOTO BACKGROUND */
+
+#scene-countdown {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: #eadcc5;
+}
+
+#scene-countdown::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    background-image:
+        linear-gradient(
+            rgba(245, 231, 211, 0.48),
+            rgba(245, 231, 211, 0.58)
+        ),
+        url("./images/his-background.jpg");
+
+    background-size:
+        100% 100%,
+        auto 78%;
+
+    background-position:
+        center,
+        center 45%;
+
+    background-repeat: no-repeat;
+
+    filter: blur(5px);
+    transform: scale(1.02);
+}
+
+#scene-countdown .intro-card {
+    position: relative;
+    z-index: 1;
+}
+
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 600px) {
+
+    #scene-countdown {
+        min-height: 100svh;
+        padding: 55px 14px;
+    }
+
+    #scene-countdown::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    background-image:
+        linear-gradient(
+            rgba(245, 231, 211, 0.35),
+            rgba(245, 231, 211, 0.45)
+        ),
+        url("./images/His.jpg");
+
+    background-size:
+        100% 100%,
+        auto 85%;
+
+    background-position:
+        center,
+        right 5% center;
+
+    background-repeat: no-repeat;
+
+    filter: blur(3px);
+}
+
+    #scene-countdown .intro-card {
+        width: 100%;
+        max-width: 100%;
+        padding: 25px 17px;
+    }
+}
+
+
+
+/* SLIDE 2 - BIRTHDAY PHOTO */
+.cake-card {
+  position: relative;
+}
+
+.cake-photo-polaroid {
+  width: 115px;
+  margin: 15px auto;
+  padding: 7px 7px 20px;
+  background: #fff9eb;
+  border: 1px solid #dfcdb1;
+  box-shadow: 0 7px 18px rgba(65, 40, 30, 0.2);
+  transform: rotate(4deg);
+  position: relative;
+  z-index: 2;
+}
+
+.cake-photo-polaroid img {
+  display: block;
+  width: 100%;
+  height: 125px;
+  object-fit: cover;
+}
+
+.cake-photo-polaroid figcaption {
+  margin-top: 6px;
+  text-align: center;
+  color: #805648;
+  font-family: cursive;
+  font-size: 13px;
+}
+
+
+/* ROMANTIC PHOTO BACKGROUND - CAKE PAGE */
+#scene-cake {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+#scene-cake::before {
+  content: "";
+  position: absolute;
+  inset: -15px;
+  z-index: -1;
+  background:
+    linear-gradient(rgba(248, 231, 205, 0.68),
+                    rgba(248, 231, 205, 0.68)),
+    url("images/slide2-his.jpg") center 35% / cover no-repeat;
+  filter: blur(3px);
+  transform: scale(1.04);
+}
+
+#scene-cake .cake-card {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 248, 235, 0.91);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 12px 40px rgba(87, 53, 39, 0.18);
+}
+
+/* CAKE PAGE - TRANSPARENT CINEMATIC DESIGN */
+
+#scene-cake .cake-card {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Make text clear over the photograph */
+#scene-cake h2,
+#scene-cake .eyebrow,
+#scene-cake .body-copy,
+#scene-cake .cake-message,
+#scene-cake .tiny,
+#scene-cake .handwritten {
+  text-shadow: 0 2px 8px rgba(255, 245, 225, 0.9);
+}
+
+/* Keep cake decorations visible */
+#scene-cake .cake-stage {
+  position: relative;
+  z-index: 2;
+}
+
+/* Give the photo Polaroid a little depth */
+#scene-cake .cake-photo-polaroid {
+  box-shadow: 0 8px 25px rgba(40, 25, 15, 0.3);
+}
+
+
+/* FIX TEXT VISIBILITY ON CAKE PAGE */
+
+#scene-cake::before {
+  background:
+    linear-gradient(
+      rgba(35, 22, 20, 0.38),
+      rgba(35, 22, 20, 0.38)
+    ),
+    url("images/slide2-his.jpg") center 35% / cover no-repeat !important;
+  filter: blur(2px);
+}
+
+/* Make all cake page text readable */
+#scene-cake h2,
+#scene-cake .eyebrow,
+#scene-cake .body-copy,
+#scene-cake .handwritten,
+#scene-cake .tiny,
+#scene-cake .cake-hint {
+  color: #fff5e8 !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+}
+
+/* Keep the cake and decorations clear */
+#scene-cake .cake-stage {
+  filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.2));
+}
+
+/* Keep the birthday button attractive */
+#scene-cake .primary-btn {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+}
+
+
+/* SLIDE 3 - OUR COUPLE PHOTO */
+.letter-couple-photo {
+  width: 125px;
+  margin: 15px auto;
+  padding: 7px 7px 22px;
+  background: #fff9eb;
+  border: 1px solid #dfcdb1;
+  box-shadow: 0 8px 20px rgba(65, 40, 30, 0.2);
+  transform: rotate(-4deg);
+  position: relative;
+  z-index: 5;
+}
+
+.letter-couple-photo img {
+  width: 100%;
+  height: 125px;
+  object-fit: cover;
+  display: block;
+}
+
+.letter-couple-photo figcaption {
+  text-align: center;
+  margin-top: 7px;
+  color: #805648;
+  font-family: cursive;
+  font-size: 13px;
+}
+
+
+/* SLIDE 4 - ROMANTIC NAME SCRAPBOOK */
+
+#scene-name .name-card {
+  position: relative;
+  overflow: visible;
+}
+
+.name-photo-polaroid {
+  position: relative;
+  width: 125px;
+  margin: 18px auto 24px;
+  padding: 8px 8px 24px;
+  background: #fffaf0;
+  border: 1px solid #dfcdb1;
+  box-shadow: 0 8px 22px rgba(75, 45, 35, 0.2);
+  transform: rotate(-6deg);
+  transition: transform 0.4s ease;
+}
+
+.name-photo-polaroid:hover {
+  transform: rotate(0deg) scale(1.05);
+}
+
+.name-photo-polaroid img {
+  display: block;
+  width: 100%;
+  height: 135px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.name-photo-polaroid figcaption {
+  margin-top: 8px;
+  text-align: center;
+  color: #995f65;
+  font-family: cursive;
+  font-size: 14px;
+}
+
+.name-photo-tape {
+  position: absolute;
+  top: -12px;
+  left: 32%;
+  width: 50px;
+  height: 22px;
+  background: rgba(190, 155, 120, 0.45);
+  transform: rotate(8deg);
+  z-index: 2;
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .name-photo-polaroid {
+    width: 105px;
+    margin: 14px auto 20px;
+  }
+
+  .name-photo-polaroid img {
+    height: 110px;
+  }
+}
+/* SLIDE 6 - FULL PHOTO BACKGROUND */
+
+#scene-final {
+  position: relative;
+  isolation: isolate;
+}
+
+#scene-final::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(rgba(35, 20, 20, 0.48), rgba(35, 20, 20, 0.48)),
+    url("images/slide6-his.jpg") center center / cover no-repeat;
+}
+
+/* Remove the large cream card */
+#scene-final .final-card {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Make the birthday message readable */
+#scene-final h2,
+#scene-final .eyebrow,
+#scene-final .final-letter p,
+#scene-final .final-flower,
+#scene-final .tiny {
+  color: #fff5e8 !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+#scene-final .final-letter {
+  background: transparent !important;
+}
+
+#scene-final .final-bold {
+  font-weight: bold;
+  color: #ffe1c9 !important;
+}
+
+#scene-final .final-photo-polaroid {
+  position: relative;
+  z-index: 2;
+}
+
+
+
+
+/* FINAL PAGE - SOFTER TEXT BACKGROUND */
+#scene-final .final-letter {
+    background: rgba(25, 15, 15, 0.18) !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 14px;
+    padding: 18px 24px !important;
+}
+
+#scene-final .final-letter p {
+    color: #fff8ed !important;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.95) !important;
+    line-height: 1.7;
+}
+
+/* MAKE TEXT CLEARER ON ALL SIX SLIDES */
+
+/* Main headings */
+.scene h1 {
+  font-size: clamp(3rem, 7vw, 5.5rem) !important;
+  line-height: 1.12;
+}
+
+.scene h2 {
+  font-size: clamp(2.5rem, 5vw, 4rem) !important;
+  line-height: 1.15;
+}
+
+/* Chapter headings */
+.scene .eyebrow {
+  font-size: 0.95rem !important;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+}
+
+/* Descriptions and paragraphs */
+.scene .body-copy,
+.scene .final-letter p,
+.scene .typed-letter,
+.scene .meaning-card p,
+.scene .assembled-message p {
+  font-size: 1.2rem !important;
+  line-height: 1.7 !important;
+}
+
+/* Small notes and captions */
+.scene .tiny,
+.scene .small-note,
+.scene .cake-hint {
+  font-size: 1rem !important;
+  line-height: 1.5;
+}
+
+/* Improve text contrast on photo backgrounds */
+#scene-cake h2,
+#scene-cake .eyebrow,
+#scene-cake .body-copy,
+#scene-cake .handwritten,
+#scene-cake .tiny,
+#scene-final h2,
+#scene-final .eyebrow,
+#scene-final .final-letter p,
+#scene-final .tiny {
+  text-shadow: 0 2px 6px rgba(0,0,0,0.85) !important;
+}
+
+/* Mobile readability */
+@media (max-width: 680px) {
+  .scene .body-copy,
+  .scene .final-letter p,
+  .scene .typed-letter,
+  .scene .meaning-card p {
+    font-size: 1.08rem !important;
+    line-height: 1.6 !important;
+  }
+
+  .scene .eyebrow {
+    font-size: 0.82rem !important;
+  }
+}
+
+
+
+/* FIRST PAGE - CONNECTED SCRAPBOOK DESIGN */
+/* FIRST PAGE - LARGE PHOTO + BIRTHDAY CARD */
+
+#scene-countdown {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    padding: 45px 5%;
+}
+
+/* Birthday card */
+#scene-countdown .intro-card {
+    width: min(680px, 58%);
+    flex: 0 1 680px;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+}
+
+/* Large portrait */
+#scene-countdown .intro-photo-polaroid {
+    display: block;
+    width: min(38vw, 440px);
+    height: min(76svh, 680px);
+    flex: 0 1 440px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #fff9eb;
+    border: 8px solid #fff9eb;
+    box-shadow: 0 15px 35px rgba(65,40,30,.22);
+    transform: rotate(2deg);
+    position: relative;
+    z-index: 2;
+}
+
+#scene-countdown .intro-photo-polaroid img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 25%;
+}
+
+#scene-countdown .intro-photo-polaroid figcaption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 18px;
+    color: white;
+    text-align: center;
+    font-family: cursive;
+    font-size: 20px;
+    background: linear-gradient(transparent, rgba(0,0,0,.65));
+}
+
+/* Mobile */
+@media (max-width: 760px) {
+    #scene-countdown {
+        flex-direction: column;
+        gap: 22px;
+        padding: 55px 15px;
+    }
+
+    #scene-countdown .intro-card {
+        width: 100%;
+        flex: none;
+    }
+
+    #scene-countdown .intro-photo-polaroid {
+        width: min(85%, 340px);
+        height: 380px;
+        flex: none;
+    }
+}
+/* =========================================
+   SLIDE 6 - FINAL BIRTHDAY LETTER
+========================================= */
+
+#scene-final {
+    position: relative;
+    isolation: isolate;
+    min-height: 100svh;
+    height: auto;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    padding: 85px 20px 75px;
+
+    background-image:
+        linear-gradient(
+            rgba(20, 12, 12, 0.32),
+            rgba(20, 12, 12, 0.42)
+        ),
+        url("images/slide6-his.jpg");
+
+    background-size: cover;
+    background-position: center 20%;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+}
+
+/* Remove old background overlay */
+#scene-final::before {
+    content: none !important;
+    display: none !important;
+}
+
+/* Remove the cream card */
+#scene-final .final-card {
+    width: min(760px, 100%);
+    max-width: 760px;
+    height: auto;
+    max-height: none;
+    overflow: visible !important;
+    box-sizing: border-box;
+    padding: 20px 28px !important;
+    margin: auto;
+
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Main heading */
+#scene-final h2 {
+    font-size: clamp(2.3rem, 4.5vw, 3.6rem) !important;
+    line-height: 1.08 !important;
+    color: #fff8ed !important;
+    text-shadow: 0 3px 10px #000 !important;
+    margin: 8px 0 12px;
+}
+
+/* Letter background */
+#scene-final .final-letter {
+    width: 100%;
+    max-width: 660px;
+    margin: 12px auto;
+    padding: 16px 22px !important;
+
+    background: rgba(20, 12, 12, 0.30) !important;
+    border: none !important;
+    border-radius: 12px;
+    box-shadow: none !important;
+    backdrop-filter: blur(2px);
+}
+
+/* Letter paragraphs */
+#scene-final .final-letter p {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    margin: 0 0 10px;
+    color: #fffaf0 !important;
+    text-shadow: 0 2px 5px #000 !important;
+}
+
+/* Birthday wish */
+#scene-final .final-letter .final-bold {
+    font-size: 19px !important;
+    text-align: center;
+    color: #ffe0bd !important;
+    margin-top: 12px;
+}
+
+/* Final handwritten message */
+#scene-final .final-letter .final-signoff {
+    font-size: 23px !important;
+    line-height: 1.3 !important;
+    text-align: center;
+    color: #ffe4d2 !important;
+    margin-bottom: 0;
+}
+
+/* Small text and flower */
+#scene-final .eyebrow,
+#scene-final .final-flower,
+#scene-final .tiny {
+    color: #fff8ed !important;
+    text-shadow: 0 2px 6px #000 !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 680px) {
+    #scene-final {
+        padding: 75px 12px 65px;
+        background-position: center 20%;
+    }
+
+    #scene-final .final-card {
+        padding: 15px 8px !important;
+    }
+
+    #scene-final .final-letter {
+        padding: 13px 14px !important;
+    }
+
+    #scene-final .final-letter p {
+        font-size: 14px !important;
+        line-height: 1.45 !important;
+    }
+
+    #scene-final .final-letter .final-signoff {
+        font-size: 20px !important;
+    }
 }
